@@ -1,0 +1,11 @@
+config.yml
+.DS_Store
+*.swn
+*.swm
+*.swo
+*.swp
+.ruby-version
+vendor/ruby
+log/
+request_handlers/log/
+tmp/

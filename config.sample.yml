@@ -1,0 +1,42 @@
+images:
+  image_name:
+    repo_owner: 'repo_owner'
+    port: 80
+    command: 'bash /scripts/run.sh'
+    container_create_params:
+      AttachStdin: true
+      AttachStdout: true
+      AttachStderr: true
+      OpenStdin: true
+      StdinOnce: true
+      Tty: true
+      Volumes:
+        '/shared/config': {}
+        '/shared/scripts': {}
+    container_start_params:
+      Binds: ['/shared/config:/shared/config:ro', '/shared/scripts:/scripts:ro']
+authentication_strategy: 'GithubAuthentication'
+routing_strategy: 'NginxRoutingStrategy'
+event_listeners:
+  - 'LaunchOnGithubPullRequestOpened'
+  - 'KillOnGithubPullRequestClosed'
+  - 'GithubAuthorization'
+  - 'StatusReport'
+post_launch_handlers:
+  - 'AddGithubPullRequestCommentOnLaunch'
+  - 'PostToSlackOnLaunch'
+pre_kill_handlers:
+  - 'RemoveGithubPullRequestCommentsOnKill'
+github:
+  incoming_auth:
+    user: 'basic_auth_user_for_git_hook'
+    password: 'basic_auth_password_for_git_hook'
+    hook_secret: 'hook_secret'
+  outgoing_auth:
+    user: 'username_for_outgoing_github_requests'
+    password: 'password_for_outgoing_github_requests'
+slack:
+  subdomain: 'slack_subdomain'
+  token: 'slack_token'
+  username: 'slack_username'
+  channel: 'slack_channel'

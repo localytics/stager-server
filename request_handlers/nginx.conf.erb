@@ -1,0 +1,16 @@
+upstream <%= slug %> {
+	ip_hash;
+	server 127.0.0.1:<%= port %>;
+}
+
+server {
+  listen 80;
+  server_name <%= slug %>.<%= host %>;
+
+  location / {
+    proxy_pass http://<%= slug %>;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+  }
+
+}
