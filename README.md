@@ -2,7 +2,7 @@
 
 Stager automates the process of staging web applications by coordinating the creation and destruction of nginx vhosts with the creation and destruction of docker containers.
 
-![alt tag](https://raw.githubusercontent.com/localytics/stager-server/master/stager-demo.gif?token=682587__eyJzY29wZSI6IlJhd0Jsb2I6bG9jYWx5dGljcy9zdGFnZXIvbWFzdGVyL3N0YWdlci1kZW1vLmdpZiIsImV4cGlyZXMiOjE0MDQwNjE0NjB9--93478cb1a6a36e6d19e2e33e937bd013d4090da1)
+![alt tag](http://imgur.com/ZzUSaRV.gif)
 
 ##Installing
 
