@@ -34,7 +34,7 @@ To use this strategy, you would save this in either request handler directory an
 authentication_strategy: 'StupidAuthentication'
 ```
 
-When adding authentication strategies, it is often useful to [add an auth strategy to the Stager cli gem](https://github.com/localytics/stager-cli/blob/master/README.md#adding-auth-strategies) which corresponds to the new authentication strategy, making use of the authentication strategy easier when interacting with Stager via the API.
+When adding authentication strategies, it is often useful to [add an auth strategy to the Stager cli gem](https://github.com/localytics/stager-client/blob/master/README.md#adding-auth-strategies) which corresponds to the new authentication strategy, making use of the authentication strategy easier when interacting with Stager via the API.
 
 ##container_rotation_strategy
 

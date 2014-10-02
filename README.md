@@ -147,7 +147,7 @@ haproxy:
 
 ###Authentication
 
-Stager requires use of an authentication strategy when posting to the /launch or /kill endpoints. Currently two authentication strategies are available, Basic Auth and Github Auth. Both require additional parameters be sent with each request, which can be handled for you by using the [Stager cli gem](https://github.com/localytics/stager-cli)
+Stager requires use of an authentication strategy when posting to the /launch or /kill endpoints. Currently two authentication strategies are available, Basic Auth and Github Auth. Both require additional parameters be sent with each request, which can be handled for you by using the [Stager cli gem](https://github.com/localytics/stager-client)
 
 ####Basic Authentication
 
@@ -197,7 +197,7 @@ stager launch name_of_image name_for_container #will prompt for github creds onc
 ```
 
 
-If neither authentication strategy suits your use-case, new ones can easily be added. See [adding authentication strategies](request_handlers/README.md#authentication_strategy) for Stager, and [Stager cli](https://github.com/localytics/stager-cli/blob/master/README.md#adding-auth-strategies)
+If neither authentication strategy suits your use-case, new ones can easily be added. See [adding authentication strategies](request_handlers/README.md#authentication_strategy) for Stager, and [Stager cli](https://github.com/localytics/stager-client/blob/master/README.md#adding-auth-strategies)
 
 ##Customization 
 
