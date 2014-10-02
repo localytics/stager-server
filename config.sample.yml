@@ -17,6 +17,9 @@ images:
       Binds: ['/shared/config:/shared/config:ro', '/shared/scripts:/scripts:ro']
 authentication_strategy: 'GithubAuthentication'
 routing_strategy: 'NginxRoutingStrategy'
+nginx:
+  - target_dir: '/etc/nginx/sites-enabled'
+  - template_path: './request_handlers/nginx.conf.erb'
 event_listeners:
   - 'LaunchOnGithubPullRequestOpened'
   - 'KillOnGithubPullRequestClosed'

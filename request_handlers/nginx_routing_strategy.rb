@@ -7,8 +7,8 @@
 #
 # @config
 #   nginx:
-#     - target_dir: /etc/nginx/sites-enabled
-#     - template_path: /etc/nginx/sites-enabled
+#     target_dir: /etc/nginx/sites-enabled
+#     template_path: ./request_handlers/nginx_conf.erb
 
 class NginxRoutingStrategy < RoutingStrategy
 
@@ -26,11 +26,12 @@ class NginxRoutingStrategy < RoutingStrategy
   end
 
   def template_path
-    @settings.haproxy['template_path'] || './request_handlers/nginx.conf.erb'
+    @settings.nginx['template_path']
   end
 
   def port
-    @ports.next_port
+    container.json['NetworkSettings']['Ports'].
+      map { |port| port[1] }.flatten.first['HostPort']
   end
 
   def host
@@ -50,7 +51,7 @@ class NginxRoutingStrategy < RoutingStrategy
   end
 
   def target_dir
-    @settings.nginx['target_dir'] || '/etc/nginx/sites-enabled'
+    @settings.nginx['target_dir']
   end
 
 end

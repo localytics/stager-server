@@ -7,9 +7,9 @@
 #
 # @config
 #   haproxy:
-#     - target_path: /etc/haproxy/haproxy.cfg
-#     - template_path: /etc/haproxy/haproxy.cfg.erb
-#     - bind: '*:8080'
+#     target_path: /etc/haproxy/haproxy.cfg
+#     template_path: /etc/haproxy/haproxy.cfg.erb
+#     bind: '*:8080'
 
 class HaproxyRoutingStrategy < RoutingStrategy
 
