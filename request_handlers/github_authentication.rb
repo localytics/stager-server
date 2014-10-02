@@ -22,7 +22,7 @@ class GithubAuthentication < AuthenticationStrategy
   def authenticates?
     return false unless @request.params[:github_token] && !@request.params[:github_token].empty?
     begin
-      gh = Github.new oauth_token: @request.params[:github_token]
+      gh = Github.new oauth_token: @request.params.delete('github_token')
       image_config = @settings.images[@request.params[:image_name]]
       gh.repos.get(image_config['repo_owner'], @request.params[:image_name])
     rescue

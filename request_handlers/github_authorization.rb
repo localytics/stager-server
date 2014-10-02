@@ -29,12 +29,13 @@ class GithubAuthorization < RequestHandler
   end
 
   def get_oauth_url
-    @settings.github_states[@request.ip] = Digest::MD5.hexdigest("#{@request.ip}#{Time.now.to_s}")
-    github_api.authorize_url scope: 'repo', state: @settings.github_states[@request.ip],
+    return unless @request.params[:gh_state]
+    @settings.github_states[@request.params[:gh_state]] = Digest::MD5.hexdigest("#{rand(36**8).to_s(36)}#{Time.now.to_i}")
+    github_api.authorize_url scope: 'repo', state: @settings.github_states[@request.params[:gh_state]],
       redirect_uri:"#{@request.scheme}://#{@request.env['HTTP_HOST']}/event_receiver?action=create_github_token"
   end
 
-  def consume_state_and_return_ip
+  def consume_state_and_return_key
     return nil unless (saved_state = @settings.github_states.find { |k, v| v == @request.params[:state] })
     @settings.github_states.delete saved_state[0]
     saved_state[0]
@@ -46,14 +47,18 @@ class GithubAuthorization < RequestHandler
   end
 
   def create_github_token
-    return unless (@request.params[:code] && ip = consume_state_and_return_ip)
-    @settings.github_tokens[ip] = github_api.get_token(@request.params[:code]).token
+    return unless (@request.params[:code] && key = consume_state_and_return_key)
+    @settings.github_tokens[key] = [
+      github_api.get_token(@request.params[:code]).token,
+      Time.now.to_i
+    ]
     'Your Github Authorization is ready, please resume your Stager cli request'
   end
 
   def get_github_token
-    return unless @settings.github_tokens[@request.ip]
-    @settings.github_tokens.delete @request.ip
+    return unless @settings.github_tokens[@request.params[:gh_state]]
+    token = @settings.github_tokens.delete @request.params[:gh_state]
+    token[0] if (Time.now.to_i - token[1]) < 10
   end
 
   def handle
