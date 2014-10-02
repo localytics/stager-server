@@ -39,7 +39,7 @@ HOST_NAME=stager_host.com sudo erb /path/to/stager/default_vhost.erb > /etc/ngin
 
 # Allow docker group to restart nginx without sudo password
 # http://stackoverflow.com/questions/3011067/restart-nginx-without-sudo
-echo %docker ALL=NOPASSWD: /path/to/stager/restart_nginx >> /etc/sudoers
+echo %docker ALL=NOPASSWD: /path/to/stager/request_handlers/reload_nginx >> /etc/sudoers
 
 # Start stager
 cd /path/to/stager
