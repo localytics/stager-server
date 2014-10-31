@@ -1,4 +1,4 @@
-![alt tag](http://i.imgur.com/E7951c9.png)
+![alt tag](http://i.imgur.com/CgQ18gd.png)
 
 Stager automates the process of staging web applications by coordinating the creation and destruction of nginx vhosts with the creation and destruction of docker containers.
 
