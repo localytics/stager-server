@@ -9,8 +9,7 @@
 #
 # @config
 #   slack:
-#     subdomain: 'slack_subdomain'
-#     token: 'slack_token'
+#     webhook_url: 'webhook_url'
 #     username: 'slack_username'
 #     channel: 'slack_channel'
 class PostToSlackOnLaunch < RequestHandler
