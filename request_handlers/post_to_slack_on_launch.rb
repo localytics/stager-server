@@ -20,7 +20,7 @@ class PostToSlackOnLaunch < RequestHandler
 
   def handle
     Slack::Post.configure(
-      webhook_url: @settings.slack['webhook_url']
+      webhook_url: @settings.slack['webhook_url'],
       username: @settings.slack['username'])
     Slack::Post.post "#{@request.params[:image_name]}/#{@request.params[:container_name]} is now staged at " <<
         "#{@request.scheme}://#{@request.params[:container_name].slugify}.#{@request.env['HTTP_HOST']}",
