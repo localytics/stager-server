@@ -6,6 +6,11 @@ upstream <%= slug %> {
 server {
   listen 80;
   server_name <%= slug %>.<%= host %>;
+  error_page 502 /502.html;
+
+  location = /502.html {
+    root <%= Dir.pwd %>;
+  }
 
   location / {
     proxy_pass http://<%= slug %>;

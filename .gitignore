@@ -9,3 +9,4 @@ vendor/ruby
 log/
 request_handlers/log/
 tmp/
+*.un~
