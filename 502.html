@@ -1,0 +1,59 @@
+<html>
+<head>
+  <link href='http://fonts.googleapis.com/css?family=Oswald:700' rel='stylesheet' type='text/css'>
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+  <style>
+    body{
+      font-family: 'Oswald', sans-serif;
+      background-image: url(https://static.pexels.com/photos/1269/sea-ocean-boats-port-large.jpg);
+      background-repeat: no-repeat;
+      background-size: cover;
+      color: black;
+    }
+    .loading{
+      position:absolute;
+      top:40%;
+      left:50%;
+      margin:-100px 0 0 -150px;
+      font-size: 30px;
+      text-transform: uppercase;
+    }
+    .timer{
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="loading">
+    loading container ---- please wait
+  </div>
+  <div class="timer"></div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    setInterval(function(){
+      $.get(window.location.href, function(){
+        }).done(function(res){
+          window.location.reload();
+        }).error(function(res){
+          if(res.status == 502){
+            console.log("waiting another 3 seconds");
+          }else{
+            window.location.reload();
+          }
+        });
+      }, 3000);
+
+    var start = new Date;
+    setInterval(function() {
+      $('.timer').text(Math.round((new Date - start) / 1000) + "");
+      }, 1000);
+    });
+</script>
+</body>
+</html>
+
