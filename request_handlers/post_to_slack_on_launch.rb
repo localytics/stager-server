@@ -1,5 +1,5 @@
 # @description Posts a message to specified slack
-#   chat room on container launch after the launch has completed, 
+#   chat room on container launch after the launch has completed,
 #   with a link to the address where
 #   the images configured expose port is available
 #
@@ -9,8 +9,7 @@
 #
 # @config
 #   slack:
-#     subdomain: 'slack_subdomain'
-#     token: 'slack_token'
+#     webhook_url: 'webhook_url'
 #     username: 'slack_username'
 #     channel: 'slack_channel'
 class PostToSlackOnLaunch < RequestHandler
@@ -21,8 +20,7 @@ class PostToSlackOnLaunch < RequestHandler
 
   def handle
     Slack::Post.configure(
-      subdomain: @settings.slack['subdomain'],
-      token: @settings.slack['token'],
+      webhook_url: @settings.slack['webhook_url'],
       username: @settings.slack['username'])
     Slack::Post.post "#{@request.params[:image_name]}/#{@request.params[:container_name]} is now staged at " <<
         "#{@request.scheme}://#{@request.params[:container_name].slugify}.#{@request.env['HTTP_HOST']}",
