@@ -1,4 +1,5 @@
 config.yml
+bruno/.env
 .DS_Store
 *.swn
 *.swm

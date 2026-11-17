@@ -1,10 +1,13 @@
+require 'openssl'
+require './github_client'
+
 module GithubRequestHandler
 
   def secret_is_valid?
     signature = @request.env["HTTP_X_HUB_SIGNATURE"] || ""
     secret = signature[5..-1]
     return false unless secret && settings.github['incoming_auth']['hook_secret']
-    digest = OpenSSL::Digest::Digest.new('sha1')
+    digest = OpenSSL::Digest.new('sha1')
     body = @request.body.read
     @request.body.rewind
     secret == OpenSSL::HMAC.hexdigest(digest, @settings.github['incoming_auth']['hook_secret'], body)

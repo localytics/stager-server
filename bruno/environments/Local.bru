@@ -1,0 +1,25 @@
+vars {
+  @description('''Thin listens here. Start with bundle exec thin start -p 9393.''')
+  baseUrl: http://127.0.0.1:9393
+
+  @description('''Must match an image key in config.yml.''')
+  imageName: image_name
+
+  @description('''Name given to the staged container.''')
+  containerName: feature-branch
+
+  @description('''GitHub owner of the repo named by imageName.''')
+  repoOwner: repo_owner
+
+  @description('''Basic auth user for incoming GitHub webhooks. Matches config.sample.yml.''')
+  hookUser: basic_auth_user_for_git_hook
+
+  @description('''Personal access token with repo scope. Set GITHUB_TOKEN in bruno/.env.''')
+  githubToken: {{process.env.GITHUB_TOKEN}}
+
+  @description('''Webhook basic-auth password. Set HOOK_PASSWORD in bruno/.env.''')
+  hookPassword: {{process.env.HOOK_PASSWORD}}
+
+  @description('''Webhook HMAC secret. Set HOOK_SECRET in bruno/.env.''')
+  hookSecret: {{process.env.HOOK_SECRET}}
+}

@@ -1,0 +1,21 @@
+meta {
+  name: stager-server
+}
+
+auth {
+  mode: none
+}
+
+docs {
+  Open this folder in Bruno with Collection → Open Collection.
+
+  Select the Local environment, then start the app with Homebrew Ruby:
+
+  PATH="/opt/homebrew/opt/ruby/bin:$PATH" bundle exec thin start -p 9393
+
+  Requests tagged `smoke` only need that server.
+  Requests tagged `docker` also need Docker Desktop, a real image in config.yml, and a GitHub token when GithubAuthentication is enabled.
+
+  Put GITHUB_TOKEN, HOOK_PASSWORD, and HOOK_SECRET in bruno/.env.
+  Copy bruno/.env.sample if that file is missing. Bruno loads bruno/.env into the Local environment.
+}
