@@ -1,0 +1,31 @@
+meta {
+  name: Launch
+  type: http
+  seq: 2
+  tags: [
+    docker
+  ]
+}
+
+post {
+  url: {{baseUrl}}/launch
+  body: formUrlEncoded
+  auth: none
+}
+
+body:form-urlencoded {
+  image_name: {{imageName}}
+  container_name: {{containerName}}
+  github_token: {{githubToken}}
+}
+
+docs {
+  Needs Docker Desktop and a githubToken that can read repoOwner/imageName.
+  A successful body is the staged URL. Missing image config returns 400.
+}
+
+tests {
+  test("accepts the launch or reports a bad image", function() {
+    expect(res.status).to.be.oneOf([200, 400]);
+  });
+}

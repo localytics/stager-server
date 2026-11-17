@@ -1,0 +1,26 @@
+meta {
+  name: OAuth URL
+  type: http
+  seq: 1
+  tags: [
+    smoke
+  ]
+}
+
+get {
+  url: {{baseUrl}}/event_receiver?action=get_oauth_url&gh_state=local
+  body: none
+  auth: none
+}
+
+docs {
+  Builds the GitHub authorize URL locally. Add client_id and client_secret under github in config.yml so the URL contains your app id.
+}
+
+tests {
+  test("returns a GitHub authorize URL", function() {
+    expect(res.status).to.equal(200);
+    expect(res.body).to.include("https://github.com/login/oauth/authorize");
+    expect(res.body).to.include("scope=repo");
+  });
+}

@@ -24,7 +24,7 @@ class RemoveGithubPullRequestCommentsOnKill < RequestHandler
     e = @container.env_hash
     comments = github_api.issues.comments.all e[:repo_owner], e[:image_name], e[:pull_request_number]
     stager_comments = comments.find_all {|c| c['user']['login'] == @settings.github['outgoing_auth']['user'] }
-    stager_comments.each { |c| github_api.issues.comments.delete e[:repo_owner], e[:image_name], c.id }
+    stager_comments.each { |c| github_api.issues.comments.delete e[:repo_owner], e[:image_name], c['id'] }
   end
 end
 

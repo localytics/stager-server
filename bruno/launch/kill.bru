@@ -1,0 +1,31 @@
+meta {
+  name: Kill
+  type: http
+  seq: 3
+  tags: [
+    docker
+  ]
+}
+
+post {
+  url: {{baseUrl}}/kill
+  body: formUrlEncoded
+  auth: none
+}
+
+body:form-urlencoded {
+  image_name: {{imageName}}
+  container_name: {{containerName}}
+  github_token: {{githubToken}}
+}
+
+docs {
+  Needs Docker Desktop. A container that is not running still returns ok after the route update.
+}
+
+tests {
+  test("kills the named container", function() {
+    expect(res.status).to.equal(200);
+    expect(res.body).to.equal("ok");
+  });
+}

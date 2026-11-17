@@ -16,7 +16,7 @@ curl -s https://get.docker.io/ubuntu/ | sudo sh #on ubuntu 12.04, see https://ww
 sudo apt-get install build-essential
 
 #install ruby
-sudo apt-get install ruby1.9.1-dev # tested version
+sudo apt-get install ruby-dev # Ruby >= 3.3 required, tested on 3.4.4
 
 #install bundler
 sudo gem install bundler

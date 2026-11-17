@@ -1,0 +1,58 @@
+meta {
+  name: Webhook pull request closed
+  type: http
+  seq: 4
+  tags: [
+    docker
+  ]
+}
+
+post {
+  url: {{baseUrl}}/event_receiver
+  body: json
+  auth: basic
+}
+
+auth:basic {
+  username: {{hookUser}}
+  password: {{hookPassword}}
+}
+
+body:json {
+  {
+    "action": "closed"
+  }
+}
+
+script:pre-request {
+  const crypto = require('crypto');
+  const payload = {
+    action: 'closed',
+    pull_request: {
+      number: 7,
+      head: {
+        ref: bru.getEnvVar('containerName'),
+        repo: { name: bru.getEnvVar('imageName') }
+      },
+      base: {
+        repo: { owner: { login: bru.getEnvVar('repoOwner') } }
+      }
+    }
+  };
+  const body = JSON.stringify(payload);
+  const signature = crypto.createHmac('sha1', bru.getEnvVar('hookSecret')).update(body).digest('hex');
+  req.setHeader('Content-Type', 'application/json');
+  req.setHeader('X-Hub-Signature', 'sha1=' + signature);
+  req.setBody(body);
+}
+
+docs {
+  Signs a closed pull-request event. Run the opened webhook first so there is a container to stop.
+}
+
+tests {
+  test("kills from a closed pull request", function() {
+    expect(res.status).to.equal(200);
+    expect(res.body).to.equal("ok");
+  });
+}

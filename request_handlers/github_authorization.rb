@@ -1,3 +1,6 @@
+require './github_client'
+require 'digest'
+
 # @description provides rpc at event_receiver endpoint
 #   to provide "state" for Github oauth web flow, then
 #   create an authorization for the configured app with

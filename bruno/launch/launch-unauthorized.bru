@@ -1,0 +1,30 @@
+meta {
+  name: Launch unauthorized
+  type: http
+  seq: 1
+  tags: [
+    smoke
+  ]
+}
+
+post {
+  url: {{baseUrl}}/launch
+  body: formUrlEncoded
+  auth: none
+}
+
+body:form-urlencoded {
+  image_name: {{imageName}}
+  container_name: {{containerName}}
+}
+
+docs {
+  Sample config uses GithubAuthentication, so a launch without github_token is rejected before Docker is contacted.
+}
+
+tests {
+  test("rejects a launch with no token", function() {
+    expect(res.status).to.equal(401);
+    expect(res.body).to.include("Unauthorized");
+  });
+}

@@ -1,3 +1,5 @@
+require './github_client'
+
 # @description Uses github to authenticate
 #   launch/kill routes and any event handlers that should_authenticate
 #   on a per image basis

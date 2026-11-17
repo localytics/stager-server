@@ -26,7 +26,7 @@ class RoutingStrategy < RequestHandler
   end
 
   def write
-    rendered = ERB.new(File.read(template_path), nil, '-').result(binding)
+    rendered = ERB.new(File.read(template_path), trim_mode: '-').result(binding)
     File.open(target_path, 'wb') do |file|
       file.write(rendered)
     end

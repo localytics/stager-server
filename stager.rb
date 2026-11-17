@@ -64,10 +64,11 @@ class Stager < Sinatra::Base
     container_params = { "Cmd" => @image_config['command'].split(/\s+/), "name" => @params[:container_name],
       "Image" => @image.id, "Env" => env, "ExposedPorts" => { "#{expose_port}/tcp" => {} } }
     container_params.merge!(settings.images[@params[:image_name]]['container_create_params'] || {})
-    container = ::Docker::Container.create container_params
     container_start_params = { "PortBindings" => {"#{expose_port}/tcp" => [{'HostIp' => '0.0.0.0', 'HostPort' => ports.next_port}]} }
     container_start_params.merge!(settings.images[@params[:image_name]]['container_start_params'] || {})
-    container.start container_start_params  
+    container_params['HostConfig'] = (container_params['HostConfig'] || {}).merge(container_start_params)
+    container = ::Docker::Container.create container_params
+    container.start  
   end
 
   def authentication_strategy
